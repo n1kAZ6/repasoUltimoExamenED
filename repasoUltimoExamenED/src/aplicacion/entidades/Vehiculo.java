@@ -1,5 +1,11 @@
 package aplicacion.entidades;
 
+/**
+ * Clase que representa a la entidad Vehículo de las que derivan otras clases. Contiene atributos, constructor, los getter & setter 
+ * para acceso a los atributos y métodos.
+ * @author n1ko
+ *
+ */
 public class Vehiculo {
 
 	//Atributos

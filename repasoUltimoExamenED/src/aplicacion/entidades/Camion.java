@@ -1,5 +1,11 @@
 package aplicacion.entidades;
 
+/**
+ * Clase que representa a la entidad Camión que extiende de vehículo. Contiene atributos propios, constructor, los getter & setter 
+ * para acceso a los atributos y métodos.
+ * @author n1ko
+ *
+ */
 public class Camion extends Vehiculo {
 
 	//Atributos
@@ -36,7 +42,7 @@ public class Camion extends Vehiculo {
 	//Métodos
 	@Override
 	public String toString() {
-		return "---- Datos del Camión ----\nid: " + getId()+ "\nMarca:" + getMarca() + "\nModelo: " + getModelo() + "\nPrecio: " + getPrecio() 
-			+ "\nCaballos: " + getCaballos() + "\nTara máxima: " + taraMaxima + "\nRefrigerado: "+ (esRefrigerado ? "Sí": "No");
+		return "\n\n ----- Camión "+getId()+" -----\nid: " + getId()+ "\nMarca: " + getMarca() + "\nModelo: " + getModelo() + "\nPrecio: " + getPrecio() 
+			+ " €\nCaballos: " + getCaballos() + "\nTara máxima: " + taraMaxima + " Kg\nRefrigerado: "+ (esRefrigerado ? "Sí": "No");
 	}
 }
