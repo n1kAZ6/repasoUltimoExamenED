@@ -43,7 +43,9 @@ public class Motocicleta extends Vehiculo{
 		return "\n\n----- Motocicleta "+getId()+" -----\nid: " + getId() +"\nMarca: " + getMarca() + "\nModelo: " + getModelo() + "\nPrecio: " + getPrecio() + " €\nCaballos: " + getCaballos()
 				+  "\nCon baúl: " + (tieneBaul ? "Si":"No") + "\nCon asiento desmontable: " + (esAsientoDesmontable ? "Si":"No");
 	}
-	
+	public String crearRegistro() {
+		return  getId()+";"+getMarca()+";"+ getModelo() +";"+ getPrecio() +";"+getCaballos()+";"+(tieneBaul ? "Si":"No")+";"+(esAsientoDesmontable ? "Si":"No");
+	}
 	
 
 }

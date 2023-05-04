@@ -12,7 +12,7 @@ public class ImplMenu implements InterfazMenu {
 
 	@Override
 	public int mostrarMenu() {
-		return Integer.parseInt(JOptionPane.showInputDialog("\n ---- Menú Concesionario ----\n"
+		return Integer.parseInt(JOptionPane.showInputDialog("\nMenú Concesionario\n"
 				+ "\n1. Alta vehículo\n2. Registro de stock en fichero\n3. Lectura fichero de stock"
 				+ "\n4. Salir\n\nIntroduce la opción deseada: "));	
 	}

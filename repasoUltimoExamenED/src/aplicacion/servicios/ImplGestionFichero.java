@@ -24,23 +24,24 @@ import aplicacion.entidades.Motocicleta;
 public class ImplGestionFichero implements InterfazGestionFichero{
 
 	@Override
-	public void escrituraFichero(String rutaFichero, List<Automovil> baseDatosCoche, List<Motocicleta> baseDatosMotos, List<Camion> baseDatosCamion) {
+	public void escrituraFichero(String rutaFichero, int tipoVehiculo,List<Automovil> baseDatosCoche, List<Motocicleta> baseDatosMotos, List<Camion> baseDatosCamion) {
 		FileWriter fichero= null;
 		PrintWriter pw = null;
 
 		try {
 
-			fichero = new FileWriter(rutaFichero);	
+			fichero = new FileWriter(rutaFichero, true);	
 			pw = new PrintWriter(fichero);
 
-			for(Automovil coche : baseDatosCoche) 
-				pw.printf(coche.toString());
-			
-			for(Motocicleta moto : baseDatosMotos) 
-				pw.printf(moto.toString());	
-			
-			for(Camion camion : baseDatosCamion) 
-				pw.printf(camion.toString());	
+			if(tipoVehiculo == 1)
+				for(Automovil coche : baseDatosCoche) 
+					pw.println(coche.crearRegistro());
+			else if(tipoVehiculo == 2)
+				for(Motocicleta moto : baseDatosMotos) 
+					pw.println(moto.crearRegistro());	
+			else 
+				for(Camion camion : baseDatosCamion) 
+					pw.println(camion.crearRegistro());	
 			
 			JOptionPane.showMessageDialog(null, "Archivo de registro de stock escrito correctamente en "+rutaFichero);
 			
@@ -86,6 +87,50 @@ public class ImplGestionFichero implements InterfazGestionFichero{
 	         try{                    
 	            if( null != fr ){   
 	               fr.close();     
+	            }                  
+	         }catch (IOException ioe2){
+	        	 Toolkit.getDefaultToolkit().beep();
+	        	 JOptionPane.showMessageDialog(null,"[ERROR] - ERROR AL CERRAR FICHERO: " + fichero + "\n" + ioe2);
+	         }
+	      }
+	}
+	public void crearCabecera(String rutaFichero, String cabecera) {
+		  File fichero = null;
+	      FileReader fr = null;
+	      BufferedReader br = null;
+	      FileWriter ficheroEscritura= null;
+	      PrintWriter pw = null;
+	      try {
+	    	  
+	    	 fichero = new File (rutaFichero);
+	         fr = new FileReader (fichero);
+	         br = new BufferedReader(fr);
+	         ficheroEscritura = new FileWriter(rutaFichero);	
+			 pw = new PrintWriter(ficheroEscritura);
+			 
+	         String linea;
+	         int cont=0;
+	         
+	         while((linea=br.readLine())!=null) 
+	        	cont++;
+	         
+	         if(cont==0) 	        	 
+	        	 pw.println(cabecera);       
+	         else
+	        	 System.out.println("no se creo la cabecera");
+	         
+	      }	catch(FileNotFoundException fnfe){
+	    	  Toolkit.getDefaultToolkit().beep();
+	    	  JOptionPane.showMessageDialog(null,"[ERROR] - FICHERO NO ENCONTRARO: " + fichero + "\n" +fnfe); 
+	      } catch(IOException ioe){
+	    	  Toolkit.getDefaultToolkit().beep();
+	    	  JOptionPane.showMessageDialog(null,"[ERROR] - ERROR AL LEER LINEA: " + ioe); 
+	      } finally{ 
+	         try{                    
+	            if( null != fr ){   
+	               fr.close(); 
+        		   ficheroEscritura.close();
+
 	            }                  
 	         }catch (IOException ioe2){
 	        	 Toolkit.getDefaultToolkit().beep();

@@ -7,7 +7,6 @@ package aplicacion.entidades;
  *
  */
 public class Automovil extends Vehiculo {
-
 	
 	//Atributos
 	private int numeroDePuertas;
@@ -43,13 +42,8 @@ public class Automovil extends Vehiculo {
 		return "\n\n ----- Automóvil "+getId()+" -----\nid: " + getId() +"\nMarca: " + getMarca() + "\nModelo: " + getModelo() + "\nPrecio: " + getPrecio() + " €\nCaballos: " + getCaballos()
 				+  "\nNumero de puertas: " + numeroDePuertas + "\nCapacidad maletero: " + litrosMaletero +" litros";
 	}
-	
-
-	
-	
-
-	
-	
-	
+	public String crearRegistro() {
+		return  getId()+";"+getMarca()+";"+ getModelo() +";"+ getPrecio() +";"+getCaballos()+";"+numeroDePuertas+";"+litrosMaletero ;
+	}
 	
 }

@@ -26,13 +26,12 @@ public class ImplControlStockVehiculo implements InterfazControlStockVehiculos{
 		double precio;
 		int caballos;
 		
+		int tipoVehiculo = elegirTipoVehiculo();
 		marca=JOptionPane.showInputDialog("Introduce la marca: ");
 		modelo=JOptionPane.showInputDialog("Introduce el modelo: ");
 		precio=Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio: "));
 		caballos=Integer.parseInt(JOptionPane.showInputDialog("Introduce los caballos: "));
-		
-		int tipoVehiculo = elegirTipoVehiculo();
-		
+				
 		switch(tipoVehiculo) {
 		
 			case 1:
@@ -42,32 +41,31 @@ public class ImplControlStockVehiculo implements InterfazControlStockVehiculos{
 						new Automovil(
 								generarId("coche",baseDatosCoche,baseDatosMotos,baseDatosCamion)
 								,marca,modelo,precio,caballos,numPuertas,litrosMaletero));
+				JOptionPane.showMessageDialog(null, "Automovil registrado correctamente!");
 				break;
 			case 2:				
-				boolean tieneBaul = preguntaSiNo("La moto tiene baúl (S o N)?: ");
-				boolean tieneAsientoDesmontable = preguntaSiNo("La moto tiene el asiento desmontable (S o N)?: ");
+				boolean tieneBaul = preguntaSiNo("La moto tiene baúl (S=si o N=no)?: ");
+				boolean tieneAsientoDesmontable = preguntaSiNo("La moto tiene el asiento desmontable (S=si o N=no)?: ");
 				baseDatosMotos.add(
 						new Motocicleta(
 								generarId("moto",baseDatosCoche,baseDatosMotos,baseDatosCamion)
 								,marca,modelo,precio,caballos,tieneBaul,tieneAsientoDesmontable));
+				JOptionPane.showMessageDialog(null, "Motocicleta registrada correctamente!");
+
 				break;
 			case 3:
 				double taraMax = Double.parseDouble(JOptionPane.showInputDialog("Introduce la tara máxima del camión: "));
-				boolean esRefrigerado = preguntaSiNo("El camión tiene climatizador (S o N)?: ");
+				boolean esRefrigerado = preguntaSiNo("El camión tiene climatizador (S=si o N=no)?: ");
 				baseDatosCamion.add(
 						new Camion(generarId("camion",baseDatosCoche,baseDatosMotos,baseDatosCamion)
 								,marca,modelo,precio,caballos,taraMax,esRefrigerado));
+				JOptionPane.showMessageDialog(null, "Camión registrado correctamente!");
 				break;	
 		}
-		JOptionPane.showMessageDialog(null, "Vehículo registrado correctamente!");
 			
 	}
 
-	/**
-	 * Método para que el usuario pueda elegir el tipo de vehículo que se va dar de alta en el concesionario.
-	 * @return un número entero [1..3] que hace referencia al tipo de vehículo.
-	 */
-	private int elegirTipoVehiculo() {
+	public int elegirTipoVehiculo() {
 		
 		int tipoVehiculo;	
 		
@@ -163,7 +161,5 @@ public class ImplControlStockVehiculo implements InterfazControlStockVehiculos{
             return false;
 
 	}
-
-	
 
 }

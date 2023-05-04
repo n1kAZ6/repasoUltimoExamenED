@@ -2,6 +2,8 @@ package aplicacion.controlador;
 
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
 import aplicacion.entidades.Automovil;
 import aplicacion.entidades.Camion;
 import aplicacion.entidades.Motocicleta;
+import aplicacion.entidades.Vehiculo;
 import aplicacion.servicios.ImplControlStockVehiculo;
 import aplicacion.servicios.ImplGestionFichero;
 import aplicacion.servicios.ImplMenu;
@@ -25,11 +28,14 @@ import aplicacion.servicios.InterfazMenu;
  */
 public class Principal {
 	
-	//Constante con la ruta del fichero donde se guardará los vehiculos registrados, se debe asegurar su existencia en dicha ruta.
-	public static final String RUTA_ARCHIVO_LOG = "C:\\Users\\niko_\\Desktop\\vehiculos.txt"; 
+	//Constantes con la ruta del fichero donde se guardará los vehiculos registrados, se debe asegurar su existencia en dicha ruta.
+	public static final String ARCHIVO_COCHES = "C:\\Users\\niko_\\Desktop\\vehiculos.txt";
+	public static final String ARCHIVO_MOTOS = "C:\\Users\\niko_\\Desktop\\motocicletas.txt"; 
+	public static final String ARCHIVO_CAMIONES = "C:\\Users\\niko_\\Desktop\\camiones.txt"; 
+
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		List<Automovil>baseDatosCoche = new ArrayList<>();
 		List<Motocicleta>baseDatosMoto = new ArrayList<>();
 		List<Camion>baseDatosCamion = new ArrayList<>();
@@ -39,8 +45,14 @@ public class Principal {
 		InterfazControlStockVehiculos controlStock = new ImplControlStockVehiculo();
 		InterfazGestionFichero gestionFichero = new ImplGestionFichero();
 		
+		gestionFichero.crearCabecera(ARCHIVO_COCHES, "id;marca;modelo;precio;caballos;numeroPuertas;capacidadMaletero");
+		gestionFichero.crearCabecera(ARCHIVO_MOTOS, "id;marca;modelo;precio;caballos;baúl;asientoDesmontable");
+		gestionFichero.crearCabecera(ARCHIVO_CAMIONES, "id;marca;modelo;precio;caballos;taraMax;climatizador");
+		
 		boolean cerrarMenu=false;
 		int opcion;
+		int tipoVehiculo;
+		
 		do {
 			try {						
 				opcion=intM.mostrarMenu();
@@ -50,10 +62,18 @@ public class Principal {
 						controlStock.altaVehiculo(baseDatosCoche, baseDatosMoto, baseDatosCamion);
 						break;
 					case 2:
-						gestionFichero.escrituraFichero(RUTA_ARCHIVO_LOG,baseDatosCoche, baseDatosMoto, baseDatosCamion);
+						tipoVehiculo=controlStock.elegirTipoVehiculo();
+						if(tipoVehiculo == 1)
+							gestionFichero.escrituraFichero(ARCHIVO_COCHES,1,baseDatosCoche, baseDatosMoto, baseDatosCamion);
+						else if(tipoVehiculo == 2)
+							gestionFichero.escrituraFichero(ARCHIVO_MOTOS,2,baseDatosCoche, baseDatosMoto, baseDatosCamion);
+						else
+							gestionFichero.escrituraFichero(ARCHIVO_CAMIONES,3,baseDatosCoche, baseDatosMoto, baseDatosCamion);
 						break;
 					case 3:
-						gestionFichero.lecturaFichero(RUTA_ARCHIVO_LOG);
+						gestionFichero.lecturaFichero(ARCHIVO_COCHES);
+						gestionFichero.lecturaFichero(ARCHIVO_MOTOS);
+						gestionFichero.lecturaFichero(ARCHIVO_CAMIONES);
 						break;
 					case 4:
 						cerrarMenu=true;
@@ -73,10 +93,11 @@ public class Principal {
 				JOptionPane.showMessageDialog(null,"\n**[ERROR] el sistema sin interfaz gráfica: " + e.getMessage() + " **");
 			} catch (NumberFormatException e){
 				JOptionPane.showMessageDialog(null,"\n**[ERROR] no es un número entero, no ha introducido nada o el formato no es correcto: " + e.getMessage() + " **");
-			}			
+			} catch(Exception e) {
+				JOptionPane.showMessageDialog(null,"\n**[ERROR] ocurrió una excepción no esperada:: " + e.getMessage() + " **");
+			}
 		}while(!cerrarMenu);
 		
 		JOptionPane.showMessageDialog(null,"\nDesconectando, Gracias por su confianza en nuestra compañia!");
 	}
-
 }

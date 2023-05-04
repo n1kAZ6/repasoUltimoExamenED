@@ -45,4 +45,7 @@ public class Camion extends Vehiculo {
 		return "\n\n ----- Camión "+getId()+" -----\nid: " + getId()+ "\nMarca: " + getMarca() + "\nModelo: " + getModelo() + "\nPrecio: " + getPrecio() 
 			+ " €\nCaballos: " + getCaballos() + "\nTara máxima: " + taraMaxima + " Kg\nRefrigerado: "+ (esRefrigerado ? "Sí": "No");
 	}
+	public String crearRegistro() {
+		return  getId()+";"+getMarca()+";"+ getModelo() +";"+ getPrecio() +";"+getCaballos()+";"+taraMaxima+";"+(esRefrigerado ? "Sí": "No") ;
+	}
 }

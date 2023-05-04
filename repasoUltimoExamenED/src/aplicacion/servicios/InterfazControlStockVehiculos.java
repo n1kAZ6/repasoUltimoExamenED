@@ -21,4 +21,9 @@ public interface InterfazControlStockVehiculos {
 	 */
 	void altaVehiculo(List<Automovil>baseDatosCoche, List<Motocicleta>baseDatosMotos, List<Camion>baseDatosCamion);
 
+	/**
+	 * Da la opción de elegir el tipo de vehículo con el que se quiere trabajar
+	 * @return un número entero que hace referencia al tipo de vehiculo
+	 */
+	public int elegirTipoVehiculo();
 }
